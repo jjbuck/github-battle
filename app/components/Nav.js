@@ -1,44 +1,61 @@
 import React from 'react'
 import { ThemeConsumer } from '../contexts/theme'
 import { NavLink } from 'react-router-dom'
+import Switch from "react-switch";
 
 const activeStyle = {
     color: 'red'
 }
 
-export default function Nav() {
-    return (
-        <ThemeConsumer>
-            {({ theme, toggleTheme }) => (
-                <nav className='row space-between'>
-                    <ul className='row nav'>
-                        <li>
-                            <NavLink
-                                to='/'
-                                exact
-                                activeStyle={activeStyle}
-                                className='nav-link'>
-                                Popular
+export default class Popular extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = { checked: false }
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    handleChange(checked, toggleTheme) {
+        this.setState({ checked });
+        console.log(this.state)
+        toggleTheme()
+    }
+
+    render() {
+        return (
+            <ThemeConsumer>
+                {({ theme, toggleTheme }) => (
+                    <nav className='row space-between'>
+                        <ul className='row nav'>
+                            <li>
+                                <NavLink
+                                    to='/'
+                                    exact
+                                    activeStyle={activeStyle}
+                                    className='nav-link'>
+                                    Popular
                             </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to='/battle'
-                                activeStyle={activeStyle}
-                                className='nav-link'>
-                                Battle
+                            </li>
+                            <li>
+                                <NavLink
+                                    to='/battle'
+                                    activeStyle={activeStyle}
+                                    className='nav-link'>
+                                    Battle
                             </NavLink>
-                        </li>
-                    </ul>
-                    <button
-                        style={{fontSize: 30}}
-                        className='btn-clear'
-                        onClick={toggleTheme}
-                    >
-                        {theme === 'light' ? 'Switch to Dark' : 'Switch to Light'}
-                    </button>
-                </nav>
-            )}
-        </ThemeConsumer>
-    )
+                            </li>
+                        </ul>
+                        <Switch
+                            onChange={(e) => this.handleChange(e, toggleTheme)}
+                            checked={this.state.checked}
+                            uncheckedIcon='☀️'
+                            checkedIcon='🌙'
+                            offColor='#aaaaaa'
+                            onColor='#CCCC00'
+                        />
+                    </nav>
+                )}
+            </ThemeConsumer>
+        )
+    }
 }
