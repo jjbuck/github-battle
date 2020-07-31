@@ -1,5 +1,5 @@
 const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -25,8 +25,8 @@ module.exports = {
         historyApiFallback: true
     },
     optimization: {
-        minimizer: [new UglifyJsPlugin({
-            uglifyOptions: {
+        minimizer: [new TerserPlugin({
+            terserOptions: {
                 output: {
                     // true for `ascii_only`
                     ascii_only: true
