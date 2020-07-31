@@ -1,4 +1,5 @@
 const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -22,5 +23,15 @@ module.exports = {
     ],
     devServer: {
         historyApiFallback: true
-    }
+    },
+    optimization: {
+        minimizer: [new UglifyJsPlugin({
+            uglifyOptions: {
+                output: {
+                    // true for `ascii_only`
+                    ascii_only: true
+                },
+            },
+        })],
+    },
 }
