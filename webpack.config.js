@@ -25,13 +25,11 @@ module.exports = {
         historyApiFallback: true
     },
     optimization: {
-        minimizer: [new TerserPlugin({
-            terserOptions: {
-                output: {
-                    // true for `ascii_only`
-                    ascii_only: true
-                },
-            },
-        })],
-    },
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: { output: { ascii_only: true } }
+            })
+        ],
+    }
 }
